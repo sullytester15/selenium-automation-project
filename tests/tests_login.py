@@ -1,17 +1,8 @@
-from selenium.webdriver.common.by import By
+from pages.login_page import LoginPage
 
-class LoginPage:
-    def __init__(self, driver):
-        self.driver = driver
-        self.username_input = (By.ID, "txtUsername")
-        self.password_input = (By.ID, "txtPassword")
-        self.login_button = (By.ID, "btnLogin")
-
-    def load(self, url="https://opensource-demo.orangehrmlive.com/"):
-        self.driver.get(url)
-
-    def login(self, username, password):
-        self.driver.find_element(*self.username_input).send_keys(username)
-        self.driver.find_element(*self.password_input).send_keys(password)
-        self.driver.find_element(*self.login_button).click()
-
+def test_login_valid(setup):
+    driver = setup
+    login_page = LoginPage(driver)
+    login_page.load()
+    login_page.login("Admin", "admin123")
+    assert "dashboard" in driver.current_url.lower() or "Dashboard" in driver.page_source

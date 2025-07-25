@@ -1,3 +1,5 @@
+from utils.base_test import setup
+
 from pages.login_page import LoginPage
 
 def test_login_valid(setup):
